@@ -10,7 +10,6 @@ void Plik::dodaj_plik()
     system("cls");
     cout << "Wprowadz nazwe pliku" << endl;
     cin >> nazwa;
-    cin.sync();
     system("cls");
     cout << "Wpisz typ pliku" << endl;
     cin >> typ;
@@ -18,8 +17,8 @@ void Plik::dodaj_plik()
     cout << "Wpisz date wykoania pliku" << endl;
     cin >> datawykonania;
 
-     nowyplik << nazwa << ' ' << typ << ' ' << datawykonania << endl;
-     nowyplik.close();
+    nowyplik << nazwa << ' ' << typ << ' ' << datawykonania << endl;
+    nowyplik.close();
 }
 
 
@@ -28,10 +27,10 @@ void Plik::szukajnazwa()
     ifstream plik("nowyplik.txt");
     system("CLS");
     cout << "Wpisz nazwe pliku:";
-    cin >> str;
+    cin >> sznazwa;
 
     while (plik >> nazwa >> typ >> datawykonania){
-        if (str == nazwa){
+        if (sznazwa == nazwa){
             system ("CLS");
             cout << "plik znaleziony" << endl;
             cout << "nazwa" << ' ' << "typ" << ' ' << "datawykonania" << endl;
@@ -42,7 +41,7 @@ void Plik::szukajnazwa()
 
 
     while (plik >> nazwa ){
-        if (str != nazwa){
+        if (sznazwa != nazwa){
             system ("CLS") ;
             cout << "Plik nie zostal znaleziony w bazie" << endl;
         }
@@ -56,9 +55,9 @@ void Plik::szukajtyp()
 
          system ("CLS");
          cout << "Wpisz typ pliku:";
-         cin >> ftyp;
+         cin >> sztyp;
          while (plik >> nazwa >> typ >> datawykonania){
-               if (ftyp == typ){
+               if (sztyp == typ){
                         system ("CLS");
                         cout << "plik znaleniony" << endl;
                         cout << "nazwa" << ' ' << "typ" << ' ' << "datawykonania" << endl;
@@ -67,7 +66,7 @@ void Plik::szukajtyp()
                         }
                         }
          while (plik >> typ){
-               if (ftyp != typ){
+               if (sztyp != typ){
                         system ("CLS");
                         cout << "Plik nie zostal znaleziony w bazie"<< endl;
 
@@ -84,9 +83,9 @@ void Plik::szukajdatawykonania()
 
          system ("CLS");
          cout << "Wpisz date wykoanania pliku:";
-         cin >> fdatawykonania;
+         cin >> szdatawykonania;
          while (plik >> nazwa >> typ >> datawykonania){
-               if (fdatawykonania == datawykonania ){
+               if (szdatawykonania == datawykonania ){
                            system ("cls");
                            cout << "plik znaleziono"<< endl;
                            cout << "nazwa" << ' ' << "typ" << ' ' << "datawykonania" << endl;
@@ -96,7 +95,7 @@ void Plik::szukajdatawykonania()
                            }
                            }
          while (plik >> datawykonania){
-                if (fdatawykonania != datawykonania){
+                if (szdatawykonania != datawykonania){
                     system ("CLS");
                     cout << "Plik nie zostal znaleziony w bazie" << endl;
                     }
@@ -128,14 +127,14 @@ void Plik::szukaj()
 
          system ("CLS");
 
-         cout << "1.szukaj po nazwie" << endl;
-         cout << "2.szukaj po typie pliku" << endl;
-         cout << "3.szukaj po dacie wykoania" << endl;
-         cout << "4.wyswietl wszystkie pliki" << endl;
-         cout << "5.zakoncz program" << endl;
-         cin >> choice2;
+         cout << "[1] szukaj po nazwie" << endl;
+         cout << "[2] szukaj po typie pliku" << endl;
+         cout << "[3] szukaj po dacie wykoania" << endl;
+         cout << "[4] wyswietl wszystkie pliki" << endl;
+         cout << "[5] zakoncz program" << endl;
+         cin >> wybor2;
 
-         switch (choice2){
+         switch (wybor2){
                 case 1:
                      szukajnazwa();
                      break;
@@ -179,3 +178,20 @@ void Plik::zakoncz()
      system ("pause");
      cin.get();
          }
+
+Plik::Plik(string n, string t, string d, string szn, string szt, string szd, string w, int w2 )
+{
+    nazwa=n;
+    typ=t;
+    datawykonania=d;
+    sznazwa=szn;
+    sztyp=szt;
+    szdatawykonania=szd;
+    wybor=w;
+    wybor2=w2;
+
+}
+Plik::~Plik()
+{
+    cout<<endl<<"destruktor";
+}
