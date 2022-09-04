@@ -5,14 +5,13 @@ using namespace std;
 
 class Plik
 {
-
-    string nazwa, typ, datawykonania, sznazwa, sztyp, szdatawykonania, wybor;
-    int wybor2;
+    string nazwa, typ, datawykonania, sz, sznazwa, sztyp, szdatawykonania, wybor;
 
     public:
-    Plik(string="brak", string="jpeg", string="brak", string="brak", string="jpeg", string="brak", string="n", int=4);
-    ~Plik();
+  /*  Plik(string="brak", string="jpeg", string="brak", string="brak", string="jpeg", string="brak", string="brak", string="n");
+    ~Plik(); */
     void dodaj_plik();
+    void szukajpo(int a);
     void szukajnazwa();
     void szukajtyp();
     void szukajdatawykonania();
