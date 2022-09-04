@@ -5,21 +5,9 @@ using namespace std;
 
 class Plik
 {
-    string nazwa, typ, datawykonania, sz, sznazwa, sztyp, szdatawykonania, wybor;
-
     public:
-  /*  Plik(string="brak", string="jpeg", string="brak", string="brak", string="jpeg", string="brak", string="brak", string="n");
-    ~Plik(); */
-    void dodaj_plik();
-    void szukajpo(int a);
-    void szukajnazwa();
-    void szukajtyp();
-    void szukajdatawykonania();
-    void zakoncz();
-    void wyswietlWszystko();
-    void szukaj();
-    void usunRejestr();
-
+    virtual void wprowadz_dane(string typ);
+    virtual void dodaj_plik(string typ);
 };
 
 #endif // PLIK_H
