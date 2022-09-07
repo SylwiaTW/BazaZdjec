@@ -4,10 +4,13 @@
 
 using namespace std;
 
+
 void Film::wprowadz_dane(string typ)
 {
-     cout << "Wprowadz czas trwania:  ";          cin >> czastrwania;
-     cout << "Wpisz liczbe klatek na sekunde:  ";              cin >> kns;
+     cout << "Wprowadz czas trwania:  ";
+     czastrwania=Zdjecie::wpisz_int();
+     cout << "Wpisz liczbe klatek na sekunde:  ";
+     kns=Zdjecie::wpisz_int();
      cin.ignore();
      Zdjecie::wprowadz_dane(typ);
 }
