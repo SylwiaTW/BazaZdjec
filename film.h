@@ -8,8 +8,8 @@ class Film : public Zdjecie
     float czastrwania, kns;
 
 public:
-    void dodaj_plik(string typ);
     void wprowadz_dane(string typ);
+    void dodaj_plik(string typ);
 };
 
 #endif // FILM_H

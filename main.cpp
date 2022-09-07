@@ -1,60 +1,81 @@
 #include <iostream>
+#include <fstream>
+#include <locale>
+#include <vector>
+#include <iomanip>
+#include <map>
 #include "film.h"
 #include "zdjecie.h"
-#include <fstream>
 
 using namespace std;
-int wybor2;
-string nazwa, typ, datawykonania, sz, sznazwa, sztyp, szdatawykonania, wybor;
 
+struct separator : ctype<char> {
+    separator() : ctype<char>(pobierz()) {}
+    static ctype_base::mask const* pobierz()
+    {static vector<ctype_base::mask>
+        sep(table_size, ctype_base::mask());
+        sep['|'] = ctype_base::space;
+        sep['\n'] = ctype_base::space;
+        return &sep[0];
+    }
+};
 
-void szukajpo(int a)
-{
-    string slownik[4]={"", "nazwe", "typ", "date wykoania"};
-    string zmienna[4]={"", nazwa, typ, datawykonania};
+void szukajpo(int a){
+    string nazw, ty, datawyk, lok, klu;
+    float rozm, cz, ks;
+    int oce;
 
-    ifstream plikbazazdjec("bazazjec.txt");
+    string slownik[5]={"", "nazwe", "typ", "date wykonania", "slowo kluczowe"};
+
+    ifstream plikbazazdjec("bazazdjec.txt");
+    plikbazazdjec.imbue(locale(locale(), new separator()));
+
     string sz;
     system("CLS");
-    cout << "Wpisz " << slownik[a] << " pliku:";
+    cout << "Wpisz " << slownik[a] << " pliku: ";
     cin >> sz;
 
 int x = 0;
-    while (plikbazazdjec >> zmienna[1] >> zmienna[2] >> zmienna[3]) {
-        if (sz == zmienna[a]){
+    while (plikbazazdjec >>nazw>>ty>>datawyk>>lok>>rozm>>oce>>klu>>cz>>ks) {
+        string zmienna[5]={"", nazw, ty, datawyk, klu};
+        if (zmienna[a].find(sz) != string::npos){
         cout << x+1<< ". znaleziony plik:  ";
-        cout << zmienna[1] << ' '<< zmienna[2] << ' ' << zmienna[3] << endl;
+        cout <<nazw<<"   "<<setw(5)<<ty<<"   "<<setw(8)<<datawyk<<"   "<<setw(5)<<rozm<<"   "<<lok<<endl;
         x+=1;
         }
     }
 if (x==0){cout << "plik nie zostal znaleziony!" << endl;}
+system ("pause");
 
-    system ("pause");
-    cin.get();
 }
-
 
 
 void wyswietlWszystko()
     {
-         ifstream plikbazazdjec("bazazjec.txt");
-         string nazwa, typ, datawykonania;
+        string nazw, ty, datawyk, lok, klu;
+        float rozm, cz, ks;
+        int oce;
+
+         ifstream plikbazazdjec("bazazdjec.txt" );
+         plikbazazdjec.imbue(locale(locale(), new separator()));
+
          system ("CLS");
-         cout << "Wszystkie dane w bazie"<< endl;
-         cout << "---------------" << endl;
-         while (plikbazazdjec >> nazwa >> typ >> datawykonania){
-         cout << nazwa << ' ' << typ << ' ' << datawykonania << endl ;
-         }
+         cout << "Wszystkie dane w bazie: "<< endl;
+
+         while (plikbazazdjec >>nazw>>ty>>datawyk>>lok>>rozm>>oce>>klu>>cz>>ks)
+         {cout <<setw(20)<<nazw<<"   "<<setw(5)<<ty<<"   "<<setw(8)<<datawyk<<"   "<<setw(5)<<rozm<<"   "<<lok<<endl;}
+
          system ("pause");
+
          }
 
 
 void usunRejestr()
-    {
-         cout << "Jestes pewny?[T]ak[N]ie" << endl;
-         cin >> wybor;
-         if (wybor == "t"){
-         ofstream plikbazazdjec("bazazjec.txt");
+    {   string wyb;
+         cout << "Jestes pewny? [T]ak [N]ie" << endl;
+         cin >> wyb;
+         if (wyb == "t"){
+         ofstream plikbazazdjec("bazazdjec.txt");
          system("cls");
          cout << "Rejestr zostal usuniety" << endl;
          system("pause");
@@ -63,6 +84,7 @@ void usunRejestr()
          else{
          cout << "rejestr zachowany" << endl;
               }
+
          }
 
 
@@ -71,77 +93,83 @@ void zakoncz()
      system ("CLS");
      cout << "Program zostanie wylaczony" << endl;
      system ("pause");
-     cin.get();
          }
 
 void szukaj()
-    {
+    {    int wyb2;
          system ("CLS");
 
          cout << "[1] szukaj po nazwie" << endl;
          cout << "[2] szukaj po typie pliku" << endl;
          cout << "[3] szukaj po dacie wykonania" << endl;
-         cout << "[4] wyswietl wszystkie pliki" << endl;
-         cout << "[5] zakoncz program" << endl;
-         cin >> wybor2;
-         switch (wybor2){
-                      case 1: case 2: case 3:
-                          szukajpo(wybor2);
-                          break;
-                     case 4:
-                          wyswietlWszystko();
+         cout << "[4] szukaj po slowie klucz" << endl;
+         cout << "[5] wyswietl wszystkie pliki" << endl;
+         cout << "[6] zakoncz program" << endl;
+         cin >> wyb2;
+         switch (wyb2){
+                     case 1: case 2: case 3: case 4:
+                          szukajpo(wyb2);
                           break;
                      case 5:
+                          wyswietlWszystko();
+                          break;
+                     case 6:
                           zakoncz();
                           break;
                           }
                 }
 
-
-
-int main()
+void podaj_typ()
 {
+    string ty;
     Plik *wsk;
     Zdjecie Z;
     Film F;
-    int wyb;
+    cout << "Podaj typ pliku  ";
+    cin.ignore();
+    getline(cin,ty);
+    if (ty=="jpg"||ty=="jpeg"||ty=="png"||ty=="gif") {
+        wsk=&Z;
+        wsk->wprowadz_dane(ty);
+    } else if (ty=="mov"||ty=="mp4"||ty=="avi") {
+        wsk=&F;
+        wsk->wprowadz_dane(ty);
+    } else {
+     cout << "Niewlasciwy typ pliku" << endl;
+     system ("pause");
+    }
 
-    system ("cls");
 
+}
+
+int main()
+{
+
+    int wyb1;
+
+do
+    {
+        system ("cls");
         cout << "[1] Dodaj plik" << endl;
         cout << "[2] Szukaj pliku" << endl;
         cout << "[3] Usun rejestr" << endl;
         cout << "[4] Zakoncz program" << endl;
-        cin >> wyb;
+        cin >> wyb1;
 
- switch (wyb){
+ switch (wyb1){
         case 1:
-            cout << "Podaj typ pliku" << endl;
-            cin >> typ;
-            if (typ=="jpg"||typ=="jpeg"||typ=="png"||typ=="gif") {
-                cout << "To zdjecie!" << endl;
-                wsk=&Z;
-            } else if (typ=="mov"||typ=="mp4"||typ=="avi") {
-               cout << "To film!" << endl;
-                wsk=&F;
-            } else {
-             cout << "Niewlasciwy typ pliku" << endl;
-            }
-
-             wsk->wprowadz_dane(typ);
+            system ("CLS");
+             podaj_typ();
              break;
         case 2:
+             system ("CLS");
              szukaj();
              break;
         case 3:
+             system ("CLS");
              usunRejestr();
              break;
-        case 4:
-             zakoncz();
-             break;
-
-        cin.get();
         }
-
-return 0;
+} while(wyb1!=4);
+    return 0;
 }

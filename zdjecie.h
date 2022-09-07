@@ -7,8 +7,8 @@ using namespace std;
 class Zdjecie :public Plik
 {
 protected:
-    string typ, nazwa, datawykonania, lokalizacja;
-    float rozmiar;
+    string nazwa, typ, datawykonania, lokalizacja, klucz;
+    float rozmiar, czastrwania, kns;
     int ocena;
 
 public:
