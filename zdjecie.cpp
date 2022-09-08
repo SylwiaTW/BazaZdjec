@@ -30,13 +30,13 @@ void Zdjecie::wprowadz_dane(string typ)
 {
     cout << "Wprowadz nazwe pliku:  ";
     nazwa=wpisz_string();
-    cout << "Wpisz date wykonania pliku:  ";
+    cout << "Wpisz date wykonania pliku (zalecany format: DD-MM-RRRR):  ";
     datawykonania=wpisz_string();
     cout << "Wprowadz lokalizacje pliku:  ";
     lokalizacja=wpisz_string();
-    cout << "Wpisz rozmiar pliku:  ";
+    cout << "Wpisz rozmiar pliku (MB):  ";
     rozmiar=wpisz_int();
-    cout << "Wpisz ocene:  ";
+    cout << "Wpisz ocene (od 1 do 6):  ";
     ocena=wpisz_int();
     cout << "wpisz slowa kluczowe:  ";
     cin.ignore();
@@ -50,4 +50,20 @@ void Zdjecie::dodaj_plik(string typ)
     bazazdjec.open("bazazdjec.txt", ios::out | ios::app);
     bazazdjec <<nazwa<<'|'<<typ<<'|'<<datawykonania<<'|'<<lokalizacja<<'|'<<rozmiar<<'|'<<ocena<<'|'<<klucz<<'|'<<czastrwania<<'|'<<kns<<endl;
     bazazdjec.close();
+}
+
+Zdjecie::Zdjecie(string n, string d, string l, string k, float r, float cz, float ks, int o)
+{   nazwa=n;
+    datawykonania=d;
+    lokalizacja=l;
+    klucz=k;
+    rozmiar=r;
+    czastrwania=cz;
+    kns=ks;
+    ocena=o;
+}
+
+Zdjecie::~Zdjecie()
+{
+   // if(bazazdjec.is_open()){ bazazdjec.close();}
 }
