@@ -17,6 +17,7 @@ public:
     void dodaj_plik(string typ);
     void wprowadz_dane(string typ);
     int wpisz_int();
+    float wpisz_float();
     string wpisz_string();
 };
 

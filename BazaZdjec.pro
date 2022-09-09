@@ -1,4 +1,5 @@
 TEMPLATE = app
+
 CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt
@@ -13,3 +14,5 @@ HEADERS += \
     film.h \
     plik.h \
     zdjecie.h
+
+FORMS +=

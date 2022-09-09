@@ -5,12 +5,12 @@
 
 class Film : public Zdjecie
 {
-    float czastrwania, kns;
 
 public:
    void wprowadz_dane(string typ);
    void dodaj_plik(string typ);
    int wpisz_int();
+   float wpisz_float();
    string wpisz_string();
 };
 

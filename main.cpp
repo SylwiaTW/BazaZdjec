@@ -1,9 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <locale>
 #include <vector>
 #include <iomanip>
-#include <map>
 #include "film.h"
 #include "zdjecie.h"
 
@@ -145,6 +143,8 @@ void podaj_typ()
 int main()
 {
 
+
+
     int wyb1;
 
 do
@@ -172,4 +172,6 @@ do
         }
 } while(wyb1!=4);
     return 0;
+
+
 }

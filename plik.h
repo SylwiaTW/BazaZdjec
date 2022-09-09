@@ -9,6 +9,7 @@ class Plik
     virtual void wprowadz_dane(string typ);
     virtual void dodaj_plik(string typ);
     int wpisz_int();
+    float wpisz_float();
     string wpisz_string();
 
 };
